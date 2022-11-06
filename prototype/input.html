@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <form action="/fyp-password-manager/prototype/encrypt.php">
+      <input type="text" name="plain" placeholder="plain text" />
+      <input type="text" name="key" placeholder="secret key" />
+      <input type="submit" value="Submit" />
+    </form>
+    <br /><br />
+    <form
+      action="/fyp-password-manager/prototype/decrypt.php"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="stegoimg" />
+      <input type="submit" value="submit" name="submit" />
+    </form>
+  </body>
+</html>
