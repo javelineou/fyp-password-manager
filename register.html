@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Login | VaultMate</title>
+    <title>Create Account | VaultMate</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Bootstrap CSS -->
@@ -22,25 +22,30 @@
   <body>
     <section>
       <div class="container mt-5 pt-5 text-center">
-        <img src="img/logovault.png">
-        <p class="fs-4 fw-light">Log in or create a new account to access your secure vault</p>
+        <p class="fs-4 fw-light">Create Account</p>
       </div>
     </section>
     <section>
       <div class="container mt-2 pt-5">
         <div class="row">
-          <div class="col-12 col-sm-8 col-md-4 m-auto">
+          <div class="col-12 col-sm-7 col-md-5 m-auto">
             <div class="card border-1 rounded-3">
               <div class="card-body">
                 <form action="">
                   <p class="fw-semibold reg-title">Email Address</p>
-                  <input type="text" name="" id="" class="form-control my-4 py-2" />
+                  <input type="text" name="" id="" class="form-control my-4 py-2" placeholder="You'll use your email address to log in." />
+                  <p class="fw-semibold reg-title">Name</p>
+                  <input type="text" name="" id="" class="form-control my-4 py-2" placeholder="What should we call you?" />
                   <p class="fw-semibold reg-title">Master Password</p>
                   <input type="text" name="" id="" class="form-control my-4 py-2" />
+                  <p class="text-muted fs-14px reg-note"><b>Important:</b> Master passwords cannot be recovered if you forget it!</p>
+                  <p class="fw-semibold reg-title">Re-type Master Password</p>
+                  <input type="text" name="" id="" class="form-control my-4 py-2" />
+                  <input type="checkbox" id="tnc" name="tnc" value="tnc"> <label class="fs-14px" for="tnc">By checking this box you agree the <a class="text-decoration-none" href="#">Terms of Service & Privacy Policy</a></label>
+                  <hr>
                   <div class="d-grid gap-2">
-                    <hr>
-                    <button class="btn btn-primary" type="button">Login</button>
-                    <p class="fs-14px">New around here? <a href="#" class="text-decoration-none">Create account</a></p>
+                    <button class="btn btn-primary" type="button">Create account</button>
+                    <button class="btn btn-secondary" type="button"><i class="bi bi-box-arrow-in-right"></i> Log In</button>
                   </div>
                 </form>
               </div>

@@ -1,0 +1,23 @@
+body {
+  background-color: #e9edf4;
+}
+
+.bg-bitwarden{
+  background-color: #175DDC;
+}
+
+.fs-14px{
+  font-size: 14px;
+}
+
+.reg-title{
+  margin-bottom: -20px;
+}
+
+.reg-note{
+  margin-top: -25px;
+}
+
+.ms-navbar-left{
+  margin-left: 210px;
+}
