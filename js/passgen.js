@@ -40,7 +40,12 @@ function getRandomSymbol() {
 // The Viewbox where the result will be shown
 const resultEl = document.getElementById("result");
 // The input length, will use to change the length of the password
-const lengthEl = document.getElementById("length");
+var lengthEl = document.getElementById("length");
+
+//Minimum of length is 8. If length is lower than 8, auto set to 8.
+if(lengthEl < 8){
+	lengthEl = 8;
+}
 
 // Checkboxes representing the options that is responsible to create differnt type of password based on user
 const uppercaseEl = document.getElementById("uppercase");
@@ -50,9 +55,25 @@ const symbolEl = document.getElementById("symbol");
 
 // Button to generate the password
 const generateBtn = document.getElementById("generate");
+//Button to copy the password
+const copyBtn = document.getElementById("copy");
 // Result viewbox container
 const resultContainer = document.querySelector(".result");
 
+
+//Copy password to clipboard when copy button clicked
+copyBtn.addEventListener("click", () => {
+	const textarea = document.createElement("textarea");
+	const password = resultEl.innerText;
+	if(!password){
+		return;
+	}
+	textarea.value = password;
+	document.body.appendChild(textarea);
+	textarea.select();
+	document.execCommand("copy");
+	textarea.remove();
+});
 
 // When Generate is clicked Password id generated.
 generateBtn.addEventListener("click", () => {
@@ -63,10 +84,6 @@ generateBtn.addEventListener("click", () => {
 	const hasSymbol = symbolEl.checked;
 	generatedPassword = true;
 	resultEl.innerText = generatePassword(length, hasLower, hasUpper, hasNumber, hasSymbol);
-	copyInfo.style.transform = "translateY(0%)";
-	copyInfo.style.opacity = "0.75";
-	copiedInfo.style.transform = "translateY(200%)";
-	copiedInfo.style.opacity = "0";
 });
 
 // Function responsible to generate password and then returning it.
