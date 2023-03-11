@@ -55,6 +55,7 @@
         // Save the image to a file.
         $newImage = 'stego.png';
         imagepng($img, $newImage, 9);
+        echo "Stego image created";
       
         // Destroy the image handler.
         imagedestroy($img);

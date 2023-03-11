@@ -23,13 +23,14 @@ function toBin($str){
 
     //Hash the master password
     $secret_key = hash('sha256', $key);
+    //echo $secret_key;
 
     $iv = str_repeat("0",openssl_cipher_iv_length($cipher));
-    echo $iv;
+    //echo $iv;
 
     $ciphertext = openssl_encrypt($plain, $cipher, $secret_key, $option, $iv);
     //echo "Encrypted text:  " . $ciphertext;
 
-    $src = 'C:/xampp1/htdocs/fyp-password-manager/prototype/Red_vineyards.jpg';
+    $src = 'C:/xampp/htdocs/fyp-password-manager/prototype/Red_vineyards.jpg';
     steganize($src, $ciphertext);
 ?>
