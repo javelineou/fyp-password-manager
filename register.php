@@ -35,13 +35,54 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     />
     <!-- Custom CSS/JS -->
     <link rel="stylesheet" href="style.css" />
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
 
   <body>
+  <script>
+      function verifyPassword() {
+        //Validating form requirements
+        var pw1 = document.forms["registerForm"]["password"].value;
+        var pw2 = document.forms["registerForm"]["repassword"].value;
+        var length = pw1.length;
+                
+        if(length < 12){
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid',
+            text: 'Password must be at least 12 characters',
+            confirmButtonText: 'Ok',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "register.php";
+            }
+          })
+        }
+
+        if (pw1 != pw2) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid',
+            text: 'Password did not match',
+            confirmButtonText: 'Ok',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "register.php";
+            }
+          })
+        }
+        
+        //bikin kalo nama/email ga diisi
+
+        if(pw1 == pw2 && length >= 12){
+          document.getElementById("registerForm").submit();
+        }
+        
+      }
+    </script>
     <section>
       <div class="container mt-2 pt-3 text-center">
         <p class="fs-4 fw-light">Create Account</p>
@@ -53,7 +94,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
           <div class="col-12 col-sm-7 col-md-5 m-auto">
             <div class="card border-1 rounded-3">
               <div class="card-body">
-                <form action="register-action.php" method="POST">
+                <form id="registerForm" name="registerForm" action="register-action.php" method="POST">
                   <p class="fw-semibold reg-title">Email Address</p>
                   <input
                     type="email"
@@ -101,10 +142,10 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                   >
                   <hr />
                   <div class="d-grid gap-2">
-                    <input class="btn btn-primary" type="submit" value="Create account"></input>
-                    <button class="btn btn-secondary" type="button">
-                      <i class="bi bi-box-arrow-in-right"></i> Log In
-                    </button>
+                    <input class="btn btn-primary" type="button" onclick="verifyPassword()" value="Create account"></input>
+                    <a href="login.html" class="btn btn-secondary" type="button">
+                      <i class="bi bi-box-arrow-in-right"></i> Log In 
+                    </a>
                   </div>
                 </form>
               </div>
