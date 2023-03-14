@@ -7,10 +7,9 @@
     
     $email = $_POST["email"];
     $name = $_POST["name"];
-    $password = md5($_POST["password"]);
-    $repassword = $_POST["repassword"];
+    $mpassword = md5($_POST["password"]);
 
-    $query = "INSERT INTO user VALUES ('', '$email', '$name', '$password')";
+    $query = "INSERT INTO user VALUES ('', '$email', '$name', '$mpassword')";
 
     $data = mysqli_query($conn, $query);
 

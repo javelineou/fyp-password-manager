@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Check if the user is already logged in, then go dashboard
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+  header("location: vault.php");
+  exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,12 +35,53 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
 
   <body>
+  <script>
+      function verifyForm() {
+        //Validating form requirements
+        var email = document.forms["loginForm"]["email"].value;
+        var mpassword = document.forms["loginForm"]["mpassword"].value;
+        var gresponse = grecaptcha.getResponse();
+                
+        if(email == "" || mpassword == ""){
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid',
+            text: 'Email or password can not be blank',
+            confirmButtonText: 'Ok',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "login.php";
+            }
+          })
+        }
+
+        if(gresponse == ""){
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid',
+            text: 'Please solve reCAPTCHA',
+            confirmButtonText: 'Ok',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "login.php";
+            }
+          })
+        }
+
+
+        if(email != "" && mpassword != "" && gresponse != ""){
+          document.getElementById("loginForm").submit();
+        }
+        
+      }
+    </script>
     <section>
       <div class="container mt-4 pt-3 text-center">
         <img src="img/logovault.png" />
@@ -44,20 +96,22 @@
           <div class="col-12 col-sm-8 col-md-4 m-auto">
             <div class="card border-1 rounded-3">
               <div class="card-body">
-                <form action="login-action.php" method="POST">
+                <form id="loginForm" name="loginForm" action="login-action.php" method="POST">
                   <p class="fw-semibold reg-title">Email Address</p>
                   <input
-                    type="text"
-                    name=""
-                    id=""
+                    type="email"
+                    name="email"
+                    id="email"
                     class="form-control my-4 py-2"
+                    required
                   />
                   <p class="fw-semibold reg-title">Master Password</p>
                   <input
-                    type="text"
-                    name=""
-                    id=""
+                    type="password"
+                    name="mpassword"
+                    id="mpassword"
                     class="form-control my-4 py-2"
+                    required
                   />
                   <div class="d-grid gap-2">
                     <div
@@ -65,10 +119,10 @@
                       data-sitekey="6LfuT50fAAAAAPkUxAYUgDIV_SXZo5AQEmNkPwDL"
                     ></div>
                     <hr />
-                    <button class="btn btn-primary" type="button">Login</button>
+                    <input class="btn btn-primary" type="button" onclick="verifyForm()" value="Login"></input>
                     <p class="fs-14px">
                       New around here?
-                      <a href="#" class="text-decoration-none"
+                      <a href="register.php" class="text-decoration-none"
                         >Create account</a
                       >
                     </p>

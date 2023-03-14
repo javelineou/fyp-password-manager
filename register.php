@@ -43,7 +43,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 
   <body>
   <script>
-      function verifyPassword() {
+      function verifyForm() {
         //Validating form requirements
         var pw1 = document.forms["registerForm"]["password"].value;
         var pw2 = document.forms["registerForm"]["repassword"].value;
@@ -142,7 +142,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                   >
                   <hr />
                   <div class="d-grid gap-2">
-                    <input class="btn btn-primary" type="button" onclick="verifyPassword()" value="Create account"></input>
+                    <input class="btn btn-primary" type="button" onclick="verifyForm()" value="Create account"></input>
                     <a href="login.html" class="btn btn-secondary" type="button">
                       <i class="bi bi-box-arrow-in-right"></i> Log In 
                     </a>
