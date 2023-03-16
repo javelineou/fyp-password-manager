@@ -9,7 +9,8 @@
     <!DOCTYPE html>
     <html lang="en">
     <head>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+    <link rel="icon" href="img/logo-icon.svg" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <?php
 

@@ -47,9 +47,11 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         //Validating form requirements
         var pw1 = document.forms["registerForm"]["password"].value;
         var pw2 = document.forms["registerForm"]["repassword"].value;
+        var email = document.forms["registerForm"]["email"].value;
+        var name = document.forms["registerForm"]["name"].value;
         var length = pw1.length;
                 
-        if(length < 12){
+        if (length < 12){
           Swal.fire({
             icon: 'error',
             title: 'Invalid',
@@ -75,9 +77,20 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
           })
         }
         
-        //bikin kalo nama/email ga diisi
+        if (email == "" || name == "" || pw1 == "" || pw2 == ""){
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid',
+            text: 'Please input your data completely',
+            confirmButtonText: 'Ok',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "register.php";
+            }
+          })
+        }
 
-        if(pw1 == pw2 && length >= 12){
+        if (pw1 == pw2 && length >= 12 && email != "" && name != ""){
           document.getElementById("registerForm").submit();
         }
         
@@ -143,7 +156,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                   <hr />
                   <div class="d-grid gap-2">
                     <input class="btn btn-primary" type="button" onclick="verifyForm()" value="Create account"></input>
-                    <a href="login.html" class="btn btn-secondary" type="button">
+                    <a href="login.php" class="btn btn-secondary" type="button">
                       <i class="bi bi-box-arrow-in-right"></i> Log In 
                     </a>
                   </div>
