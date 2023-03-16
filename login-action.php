@@ -10,7 +10,7 @@
     <html lang="en">
     <head>
     <link rel="icon" href="img/logo-icon.svg" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>.
     </head>
     <?php
 
@@ -27,7 +27,7 @@
                 $mpassword = md5($_POST["mpassword"]); //Password input converted into md5
 
                 //Validate credentials using prepared statement
-                $sql = "SELECT email, name, mpassword from user where email=? and mpassword=?"; 
+                $sql = "SELECT email, name, mpassword FROM user WHERE email=? AND mpassword=?"; 
                 $userStatement = mysqli_prepare($conn, $sql);
                 mysqli_stmt_bind_param($userStatement, 'ss', $email, $mpassword);
                 mysqli_stmt_execute($userStatement);
@@ -44,7 +44,7 @@
                     }
                     else{
                         ?>
-                        <script type="text/javascript">
+                        <script>
                         Swal.fire({
                             icon: 'error',
                             title: 'Invalid',

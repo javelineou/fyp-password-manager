@@ -52,7 +52,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link link-light fw-bold text-white-50" href="#"
+              <a class="nav-link link-light fw-bold text-white-50" href="logout.php"
                 >Log Out</a
               >
             </li>
