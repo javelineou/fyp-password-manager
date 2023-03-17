@@ -6,7 +6,7 @@
     <!DOCTYPE html>
     <html lang="en">
     <head>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>.
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="img/logo-icon.svg" />
     </head>
   <?php
@@ -16,7 +16,7 @@
     
     $email = $_POST["email"];
     $name = $_POST["name"];
-    $mpassword = md5($_POST["password"]);
+    $mpassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
     $query = "INSERT INTO user VALUES ('', '$email', '$name', '$mpassword')";
 
@@ -24,6 +24,7 @@
 
     if($data){
       ?>
+        <body>
           <script>
           Swal.fire({
               icon: 'success',
@@ -37,6 +38,7 @@
     }
 });
           </script>
+        </body>
       <?php
     } 
     else{
