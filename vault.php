@@ -1,3 +1,17 @@
+<?php
+  // Include config file to start db
+  include ("config.php");
+  // Initialize the session
+  session_start();
+
+  // Check if the user is logged in, otherwise redirect to login page
+  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+  }
+    
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -78,9 +92,28 @@
                 </p>
               </div>
               <div class="card-body">
-                <p class="fs-6 fw-semibold">Items Type</p>
+                <p class="fs-6 fw-semibold">Items Category</p>
                 <hr />
-                <!-- php, connect, select query then use if-foreach -->
+                <?php
+                  $query = "SELECT * FROM category";
+                  $data = mysqli_query($conn, $query);
+                  
+                  if(mysqli_num_rows($data) > 0){
+                    foreach($data as $category_list){
+                      ?>
+                        <div>
+                          <input type="checkbox" name="categories[]" value="<? = $category_list['category_id']; ?>">
+                          <?= $category_list['category_icon']; ?>
+                          <?= $category_list['category_name']; ?>
+                        </div>
+                      <?php
+                    }
+                  }
+                  else{
+
+                  }
+
+                ?>
               </div>
             </div>
           </div>
