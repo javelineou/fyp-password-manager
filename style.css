@@ -2,22 +2,22 @@ body {
   background-color: #e9edf4;
 }
 
-.bg-bitwarden{
-  background-color: #175DDC;
+.bg-bitwarden {
+  background-color: #175ddc;
 }
 
-.fs-14px{
+.fs-14px {
   font-size: 14px;
 }
 
-.reg-title{
+.reg-title {
   margin-bottom: -20px;
 }
 
-.reg-note{
+.reg-note {
   margin-top: -25px;
 }
 
-.ms-navbar-left{
+.ms-navbar-left {
   margin-left: 210px;
 }

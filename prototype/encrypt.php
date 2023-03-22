@@ -31,6 +31,6 @@ function toBin($str){
     $ciphertext = openssl_encrypt($plain, $cipher, $secret_key, $option, $iv);
     //echo "Encrypted text:  " . $ciphertext;
 
-    $src = 'C:/xampp/htdocs/fyp-password-manager/prototype/Red_vineyards.jpg';
+    $src = 'C:/xampp/htdocs/fyp-password-manager/prototype/house.jpg';
     steganize($src, $ciphertext);
 ?>

@@ -77,16 +77,14 @@
     <section>
       <div class="container">
         <div class="row mt-3">
-          <div class="col-1"></div>
+          <div class="col-1">Empty space</div>
           <div class="col-3">
+            <form action="" method="GET">
             <div class="card">
               <div class="card-header">
                 <p class="fs-6 fw-bold">
                   FILTERS
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-sm float-end"
-                  >
+                  <button type="submit" class="btn btn-primary btn-sm float-end">
                     Search
                   </button>
                 </p>
@@ -95,30 +93,62 @@
                 <p class="fs-6 fw-semibold">Items Category</p>
                 <hr />
                 <?php
-                  $query = "SELECT * FROM category";
-                  $data = mysqli_query($conn, $query);
+                  $category_query = "SELECT * FROM category";
+                  $category_data = mysqli_query($conn, $category_query);
                   
-                  if(mysqli_num_rows($data) > 0){
-                    foreach($data as $category_list){
+                  if(mysqli_num_rows($category_data) > 0){
+                    foreach($category_data as $category_list){
+
+                      $checked = [];
+                      if(isset($_GET['categories'])){
+                        $checked = ($_GET['categories']);
+                      }
+
                       ?>
                         <div>
-                          <input type="checkbox" name="categories[]" value="<? = $category_list['category_id']; ?>">
-                          <?= $category_list['category_icon']; ?>
+                          <input type="radio" name="categories[]" value="<?= $category_list['category_id']; ?>"
+                            <?php if(in_array($category_list['category_id'], $checked)){echo "checked";} ?>
+                          />
                           <?= $category_list['category_name']; ?>
                         </div>
                       <?php
                     }
                   }
                   else{
-
+                    echo "No type found";
                   }
-
                 ?>
               </div>
             </div>
+            </form>
           </div>
-          <div class="col-3">All Vaults</div>
-          <div class="col-5">Empty Space</div>
+          <div class="col-5">
+            <p class="fs-3 fw-normal">All Vaults  
+              <button type="submit" class="btn btn-primary btn-sm float-end">+ New Item</button>
+            </p>
+                       
+            <?php 
+              $item_query = "SELECT * FROM passwords";
+              $item_data = mysqli_query($conn, $item_query);
+
+              if(mysqli_num_rows($item_data) > 0){
+                foreach($item_data as $item_list) :
+                  ?>
+                    <div class="row">
+                      <div class="border">
+                        <p><?= $item_list['title']; ?></p>
+                      </div>
+                    </div>
+                  <?php
+                endforeach;
+              }
+              
+              else{
+                echo "No item found";
+              }
+            ?>
+          </div>
+          <div class="col-3">Empty Space</div>
         </div>
       </div>
     </section>
