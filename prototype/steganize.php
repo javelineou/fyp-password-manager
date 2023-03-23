@@ -1,4 +1,10 @@
 <?php
+    // Include config file to start db
+    include("C:/xampp/htdocs/fyp-password-manager/config.php");
+
+    // Initialize the session
+    session_start();
+
     function steganize($file, $message) {
         // Encode the message into a binary string.
         $binaryMessage = '';
@@ -53,11 +59,28 @@
         }
       
         // Save the image to a file.
-        $newImage = 'stego.png';
-        imagepng($img, $newImage, 9);
-        echo "Stego image created";
+        $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        $query = "SELECT * FROM counter";
+        $data = mysqli_query($conn, $query);
+
+        if(mysqli_num_rows($data) > 0){
+          $row = mysqli_fetch_assoc($data);
+
+          $newImage = 'stego' . $row['counter_num'] . '.png';
+          imagepng($img, $newImage, 9);
+          //echo "Stego image created";
       
-        // Destroy the image handler.
-        imagedestroy($img);
+          // Destroy the image handler.
+          imagedestroy($img);
+
+          $query2 = "UPDATE counter SET counter_num = counter_num + 1";
+          mysqli_query($conn, $query2);
+
       }
+      else{
+        echo "DB error";
+      }
+        }
+
+        
 ?>

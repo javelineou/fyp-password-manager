@@ -128,7 +128,7 @@
             </p>
                        
             <?php 
-              $item_query = "SELECT * FROM passwords";
+              $item_query = "SELECT * FROM passwords WHERE user_id = " . $_SESSION["user_id"];
               $item_data = mysqli_query($conn, $item_query);
 
               if(mysqli_num_rows($item_data) > 0){

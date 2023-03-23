@@ -31,6 +31,15 @@ function toBin($str){
     $ciphertext = openssl_encrypt($plain, $cipher, $secret_key, $option, $iv);
     //echo "Encrypted text:  " . $ciphertext;
 
-    $src = 'C:/xampp/htdocs/fyp-password-manager/prototype/house.jpg';
-    steganize($src, $ciphertext);
+    $middle = (strlen($ciphertext)) / 2; 
+
+    $ciphertext1 = substr($ciphertext, 0, $middle);
+    $ciphertext2 = substr($ciphertext, $middle);
+
+    file_put_contents("houseori1.jpg", fopen("https://api.lorem.space/image/house?w=150&h=150", 'r'));
+    file_put_contents("houseori2.jpg", fopen("https://api.lorem.space/image/house?w=150&h=150", 'r'));
+    $src1 = 'C:/xampp/htdocs/fyp-password-manager/prototype/houseori1.jpg';
+    $src2 = 'C:/xampp/htdocs/fyp-password-manager/prototype/houseori2.jpg';
+    steganize($src1, $ciphertext1);
+    steganize($src2, $ciphertext2);
 ?>
