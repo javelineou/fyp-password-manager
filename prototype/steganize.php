@@ -65,22 +65,34 @@
 
         if(mysqli_num_rows($data) > 0){
           $row = mysqli_fetch_assoc($data);
+          $num = $row['counter_num'];
 
-          $newImage = 'stego' . $row['counter_num'] . '.png';
+          $newImage = 'stego' . $num . '.png';
           imagepng($img, $newImage, 9);
-          //echo "Stego image created";
+          
+          //TODO: bikin imagepngnya gausah ke save local dulu, langsung upload database
+
+          //Store to DB
+          if($num % 2 == 1){
+            $query2 = "INSERT INTO img_one VALUE (null, 'stego". $num . ".png')";
+            mysqli_query($conn, $query2);
+          }
+          else{
+            $query3 = "INSERT INTO img_two VALUE (null, 'stego". $num . ".png')";
+            mysqli_query($conn, $query3);
+          }
       
           // Destroy the image handler.
           imagedestroy($img);
 
-          $query2 = "UPDATE counter SET counter_num = counter_num + 1";
-          mysqli_query($conn, $query2);
+          $query4 = "UPDATE counter SET counter_num = counter_num + 1";
+          mysqli_query($conn, $query4);
 
       }
       else{
         echo "DB error";
       }
-        }
+    }
 
         
 ?>

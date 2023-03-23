@@ -1,4 +1,5 @@
 <?php
+
     function desteganize($file) {
         // Read the file into memory.
         $img = imagecreatefrompng($file);
