@@ -42,6 +42,7 @@
                             $_SESSION["email"] = $row['email'];
                             $_SESSION["name"] = $row['name'];
                             $_SESSION["user_id"] = $row['user_id'];
+                            $_SESSION["mpassword"] = $row['mpassword'];
                             $_SESSION["loggedin"] = true;
 
                             header("Location: vault.php");
@@ -64,8 +65,24 @@
                             </body>
                         <?php
                         }
-                    }else{
-                        echo "DB error";
+                    }
+                    else{
+                        ?>
+                            <body>
+                                <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Invalid',
+                                    text: 'Username or password is incorrect. Try again.',
+                                    confirmButtonText: 'Ok',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                    window.location.href = "login.php";
+                                    }
+                                })
+                                </script>
+                            </body>
+                        <?php
                     }
                     
             }

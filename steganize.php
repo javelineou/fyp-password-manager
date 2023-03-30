@@ -1,11 +1,11 @@
 <?php
     // Include config file to start db
-    include "config.php";
+    include_once("config.php");
 
     // Initialize the session
     session_start();
 
-    function steganize($file, $message) {
+    function steganize($file, $message, $conn) {
         // Encode the message into a binary string.
         $binaryMessage = '';
         for ($i = 0; $i < mb_strlen($message); ++$i) {
@@ -59,7 +59,6 @@
         }
       
         // Save the image to a file.
-        $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
         $query = "SELECT * FROM counter";
         $data = mysqli_query($conn, $query);
 
@@ -90,7 +89,8 @@
 
       }
       else{
-        echo "DB error";
+        echo "ERROR: DB Error! Sorry $query. "
+          . mysqli_error($conn);
       }
     }
 

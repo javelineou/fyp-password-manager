@@ -8,9 +8,8 @@
   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
-  }
-    
-    ?>
+  }  
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +46,7 @@
     <section>
       <nav class="navbar navbar-light bg-bitwarden">
         <div class="container-fluid ms-navbar-left">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="vault.php">
             <img
               src="img/logo-icon.svg"
               width="45"
@@ -58,17 +57,13 @@
 
           <ul class="nav me-auto">
             <li class="nav-item">
-              <a class="nav-link link-light fw-bold" href="#">My Vault</a>
+              <a class="nav-link link-light fw-bold" href="vault.php#">My Vault</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link link-light fw-bold text-white-50" href="#"
-                >Tools</a
-              >
+              <a class="nav-link link-light fw-bold text-white-50" href="tools.php">Tools</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link link-light fw-bold text-white-50" href="logout.php"
-                >Log Out</a
-              >
+              <a class="nav-link link-light fw-bold text-white-50" href="logout.php">Log Out</a>
             </li>
           </ul>
         </div>
@@ -77,7 +72,7 @@
     <section>
       <div class="container">
         <div class="row mt-3">
-          <div class="col-1">Empty space</div>
+          <div class="col-1">Welcome, <?php echo $_SESSION["name"]; echo "<br>ID:".$_SESSION["user_id"];?> </div>
           <div class="col-3">
             <form action="" method="GET">
             <div class="card">
@@ -124,7 +119,7 @@
           </div>
           <div class="col-5">
             <p class="fs-3 fw-normal">All Vaults  
-              <button type="submit" class="btn btn-primary btn-sm float-end">+ New Item</button>
+              <a href="newitem.php" class="btn btn-primary btn-sm float-end">+ New Item</a>
             </p>
                        
             <?php 

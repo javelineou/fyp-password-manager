@@ -1,3 +1,16 @@
+<?php
+  // Include config file to start db
+  include ("config.php");
+  // Initialize the session
+  session_start();
+
+  // Check if the user is logged in, otherwise redirect to login page
+  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,7 +46,7 @@
     <section>
       <nav class="navbar navbar-light bg-bitwarden">
         <div class="container-fluid ms-navbar-left">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="vault.php">
             <img
               src="img/logo-icon.svg"
               width="45"
@@ -44,17 +57,13 @@
 
           <ul class="nav me-auto">
             <li class="nav-item">
-              <a class="nav-link link-light fw-bold text-white-50" href="#"
-                >My Vault</a
-              >
+              <a class="nav-link link-light fw-bold text-white-50" href="vault.php">My Vault</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link link-light fw-bold" href="#">Tools</a>
+              <a class="nav-link link-light fw-bold" href="tools.php">Tools</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link link-light fw-bold text-white-50" href="#"
-                >Log Out</a
-              >
+              <a class="nav-link link-light fw-bold text-white-50" href="logout.php">Log Out</a>
             </li>
           </ul>
         </div>

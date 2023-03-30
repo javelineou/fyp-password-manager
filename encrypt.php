@@ -1,6 +1,6 @@
 <?php
-include 'steganize.php';
-include "config.php";
+include ("steganize.php");
+include_once("config.php");
 
 function toBin($str){
     $str = (string)$str;
@@ -16,7 +16,7 @@ function toBin($str){
     return pack('H*',base_convert($binary,2,16));
   }
 
-  function mainEncrypt($plain, $key){
+  function mainEncrypt($plain, $key, $conn){
 
     $cipher = "AES-256-CBC";
     $option = 0;
@@ -39,9 +39,8 @@ function toBin($str){
     file_put_contents("houseori2.jpg", fopen("https://api.lorem.space/image/house?w=150&h=150", 'r'));
     $src1 = 'C:/xampp/htdocs/fyp-password-manager/houseori1.jpg';
     $src2 = 'C:/xampp/htdocs/fyp-password-manager/houseori2.jpg';
-    steganize($src1, $ciphertext1);
-    steganize($src2, $ciphertext2);
+    steganize($src1, $ciphertext1, $conn);
+    steganize($src2, $ciphertext2, $conn);
 
-    return $secret_key;
   }
 ?>
