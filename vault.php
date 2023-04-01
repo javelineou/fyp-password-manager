@@ -31,10 +31,7 @@
       crossorigin="anonymous"
     ></script>
     <!-- Bootstrap Icon Lib-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
 
@@ -130,9 +127,20 @@
                 foreach($item_data as $item_list) :
                   ?>
                     <div class="row">
-                      <div class="border">
-                        <p><?= $item_list['title']; ?></p>
+                      <div class="col-1">
+                        <?php
+                        $icon_query = "SELECT category_icon FROM category WHERE category_id = " . $item_list['category_id'];
+                        $icon_data = mysqli_query($conn, $icon_query);
+                        $row = mysqli_fetch_assoc($icon_data);
+                        echo $row['category_icon'];
+                        ?>
+                                          
                       </div>
+                      <div class="col-11">
+                        <a href="#" class="text-decoration-none fw-semibold"><?= $item_list['title']; ?></a>
+                        <p class="text-muted fs-14px"><?= $item_list['username']; ?></p>
+                      </div>
+                      <hr>
                     </div>
                   <?php
                 endforeach;
