@@ -1,20 +1,37 @@
 <?php
-  // Include config file to start db
-  include ("config.php");
-  // Initialize the session
-  session_start();
+    // Include config file to start db
+    include ("config.php");
+    // Initialize the session
+    session_start();
 
-  // Check if the user is logged in, otherwise redirect to login page
-  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    // Check if the user is logged in, otherwise redirect to login page
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
-  }
+    }  
+
+    // Check if the password_id parameter is set in the URL
+    if (isset($_GET['password_id'])) {
+      $password_id = $_GET['password_id'];
+
+      $query = "SELECT * FROM passwords WHERE password_id = " . $password_id;
+      $data = mysqli_query($conn, $query);
+
+      if(mysqli_num_rows($data) > 0){
+        $row = mysqli_fetch_assoc($data);
+      }
+
+    } 
+    else {
+    // If the password_id parameter is not set in the URL, display an error message
+    echo "Error: password_id parameter is missing in the URL.";
+    }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Add New Item | VaultMate</title>
+    <title>Vault | VaultMate</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="img/logo-icon.svg" />
@@ -30,74 +47,46 @@
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
-    <!-- Bootstrap Icon Lib-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
-    />
-    <!-- Custom CSS -->
+    
+    <!-- Custom CSS/JS -->
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
 
-  <body>
-  <script>
-      function verifyForm() {
-        //Validating form requirements
-        var title = document.forms["newitemForm"]["title"].value;
-        var username = document.forms["newitemForm"]["username"].value;
-        var password = document.forms["newitemForm"]["password"].value;
-        var notes = document.forms["newitemForm"]["notes"].value;
-        
-        if (title == "" || username == "" || password == ""){
-          Swal.fire({
-            icon: 'error',
-            title: 'Invalid',
-            text: 'Please input your data completely',
-            confirmButtonText: 'Ok',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.href = "newitem.php";
-            }
-          })
-        }
-        else{
-          document.getElementById("newitemForm").submit();
-        }
-      }
-    </script>
-    <section>
-      <nav class="navbar navbar-light bg-bitwarden">
-        <div class="container-fluid ms-navbar-left">
-          <a class="navbar-brand" href="vault.php">
-            <img
-              src="img/logo-icon.svg"
-              width="45"
-              height="45"
-              alt="logo-icon"
-            />
-          </a>
+    <body>
+        <section>
+        <nav class="navbar navbar-light bg-bitwarden">
+            <div class="container-fluid ms-navbar-left">
+            <a class="navbar-brand" href="vault.php">
+                <img
+                src="img/logo-icon.svg"
+                width="45"
+                height="45"
+                alt="logo-icon"
+                />
+            </a>
 
-          <ul class="nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link link-light fw-bold text-white-50" href="vault.php">My Vault</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link link-light fw-bold text-white-50" href="tools.php">Tools</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link link-light fw-bold text-white-50" href="logout.php">Log Out</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </section>
-    <section>
+            <ul class="nav me-auto">
+                <li class="nav-item">
+                <a class="nav-link link-light fw-bold" href="vault.php">My Vault</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link link-light fw-bold text-white-50" href="tools.php">Tools</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link link-light fw-bold text-white-50" href="logout.php">Log Out</a>
+                </li>
+            </ul>
+            </div>
+        </nav>
+        </section>
+        <section>
         <div class="container mt-2 pt-3 text-center">
-            <p class="fs-4 fw-light">Add New Item</p>
+            <p class="fs-4 fw-light">Edit Item</p>
         </div>
     </section>
     <section>
@@ -121,6 +110,7 @@
                     name="title"
                     id="title"
                     class="form-control my-4 py-2"
+                    value="<?php echo $row['title']; ?>"
                     required
                   />
                   <p class="fw-semibold reg-title">Username</p>
@@ -158,5 +148,5 @@
         <p class="text-center text-muted fs-6">© 2023 VaultMate Inc.</p>
       </div>
     </section>
-  </body>
+    </body>
 </html>

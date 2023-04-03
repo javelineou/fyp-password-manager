@@ -30,10 +30,11 @@
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
-    <!-- Bootstrap Icon Lib-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <!-- Custom CSS -->
+    
+    <!-- Custom CSS/JS -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -137,8 +138,8 @@
                                           
                       </div>
                       <div class="col-11">
-                        <a href="#" class="text-decoration-none fw-semibold"><?= $item_list['title']; ?></a>
-                        <p class="text-muted fs-14px"><?= $item_list['username']; ?></p>
+                       <a href="password-info.php?password_id=<?php echo $item_list['password_id']; ?>" class="item-link text-decoration-none fw-semibold"><?php echo $item_list['title']; ?></a>
+                       <p class="text-muted fs-14px"><?= $item_list['username']; ?></p>
                       </div>
                       <hr>
                     </div>
