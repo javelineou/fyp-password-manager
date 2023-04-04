@@ -1,9 +1,8 @@
 <?php
     // Include config file to start db
     include ("config.php");
-    // Initialize the session
-    session_start();
-
+    include ("decrypt.php");
+    
     // Check if the user is logged in, otherwise redirect to login page
     if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
@@ -20,6 +19,25 @@
       if(mysqli_num_rows($data) > 0){
         $row = mysqli_fetch_assoc($data);
       }
+
+      $query_img1 = "SELECT img FROM img_one WHERE img_one_id = " . $row['img_one_id'];
+      $query_img2 = "SELECT img FROM img_two WHERE img_two_id = " . $row['img_two_id'];
+
+      $data_img1 = mysqli_query($conn, $query_img1);
+      if(mysqli_num_rows($data_img1) > 0){
+          $row1 = mysqli_fetch_assoc($data_img1);
+          $src1_blob = $row1['img'];
+          $src1 = "data:image/png;base64," . base64_encode($src1_blob);
+      }
+
+      $data_img2 = mysqli_query($conn, $query_img2);
+      if(mysqli_num_rows($data_img2) > 0){
+          $row2 = mysqli_fetch_assoc($data_img2);
+          $src2_blob = $row2['img'];
+          $src2 = "data:image/png;base64," . base64_encode($src2_blob);
+      }
+
+      $password = mainDecrypt($src1, $src2);
 
     } 
     else {
@@ -111,7 +129,6 @@
                     id="title"
                     class="form-control my-4 py-2"
                     value="<?php echo $row['title']; ?>"
-                    required
                   />
                   <p class="fw-semibold reg-title">Username</p>
                   <input
@@ -119,22 +136,22 @@
                     name="username"
                     id="username"
                     class="form-control my-4 py-2"
-                    required
+                    value="<?php echo $row['username']; ?>"
                   />
                   <p class="fw-semibold reg-title">Password</p>
                   <input
-                    type="password"
+                    type="text"
                     name="password"
                     id="password"
                     class="form-control my-4 py-2"
-                    required
+                    value="<?php echo $password; ?>"
                   />
                   <label for="notes" class="fw-semibold reg-title"> Notes</label>
-                  <textarea class="form-control" placeholder="Leave a comment here" name="notes" id="notes" style="height: 100px"></textarea>
+                  <textarea class="form-control" placeholder="Leave a comment here" name="notes" id="notes" style="height: 100px"><?php echo $row['notes']; ?></textarea>
                   
                   <hr />
                   <div class="d-grid gap-2">
-                    <input class="btn btn-primary" type="button" onclick="verifyForm()" value="Save"></input>
+                    <input class="btn btn-primary" type="button" onclick="" value="Save"></input>
                   </div>
                 </form>
               </div>

@@ -68,17 +68,29 @@
 
           $newImage = 'stego' . $num . '.png';
           imagepng($img, $newImage, 9);
+
+          $image_data = file_get_contents('stego' . $num . '.png');
+          $image_data = mysqli_real_escape_string($conn, $image_data);
           
           //Store to DB
           if($num % 2 == 1){
-            $query2 = "INSERT INTO img_one VALUE (null, 'stego". $num . ".png')";
-            mysqli_query($conn, $query2);
-            unlink("stego" . $num . ".png");
+            $query2 = "INSERT INTO img_one (img) VALUE ('$image_data')";
+            if (mysqli_query($conn, $query2)) {
+              //echo "Image inserted successfully";
+              unlink("stego" . $num . ".png");
+            } else {
+              echo "Error: " . mysqli_error($conn);
+            }
+            
           }
           else{
-            $query3 = "INSERT INTO img_two VALUE (null, 'stego". $num . ".png')";
-            mysqli_query($conn, $query3);
-            unlink("stego" . $num . ".png");
+            $query3 = "INSERT INTO img_two (img) VALUE ('$image_data')";
+            if (mysqli_query($conn, $query3)) {
+              //echo "Image inserted successfully";
+              unlink("stego" . $num . ".png");
+            } else {
+              echo "Error: " . mysqli_error($conn);
+            }
           }
       
           // Destroy the image handler.
