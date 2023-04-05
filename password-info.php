@@ -68,8 +68,9 @@
     
     <!-- Custom CSS/JS -->
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="js/password_hide.js"></script>
 
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -122,14 +123,17 @@
                     <option value="4">Finance</option>
                   </select>
 
-                  <p class="fw-semibold reg-title">Title</p>
-                  <input
-                    type="text"
-                    name="title"
-                    id="title"
-                    class="form-control my-4 py-2"
-                    value="<?php echo $row['title']; ?>"
-                  />
+                  <label for="title" class="form-label fw-semibold">Title</label>
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      name="title"
+                      id="title"
+                      class="form-control py-2"
+                      value="<?php echo $row['title']; ?>"
+                    />
+                  </div>
+
                   <p class="fw-semibold reg-title">Username</p>
                   <input
                     type="text"
@@ -138,14 +142,22 @@
                     class="form-control my-4 py-2"
                     value="<?php echo $row['username']; ?>"
                   />
-                  <p class="fw-semibold reg-title">Password</p>
-                  <input
-                    type="text"
-                    name="password"
-                    id="password"
-                    class="form-control my-4 py-2"
-                    value="<?php echo $password; ?>"
-                  />
+
+                  <label for="password" class="form-label fw-semibold">Password</label>
+                  <div class="input-group mb-3">
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      class="form-control py-2"
+                      value="<?php echo $password; ?>"
+                    />
+                    <span onmouseover="highlight(this)" onmouseout="unhighlight(this)" class="input-group-text" onclick="password_show_hide();">
+                        <i class="bi bi-eye" id="show_eye"></i>
+                        <i class="bi bi-eye-slash d-none" id="hide_eye"></i>
+                    </span>
+                  </div>
+
                   <label for="notes" class="fw-semibold reg-title"> Notes</label>
                   <textarea class="form-control" placeholder="Leave a comment here" name="notes" id="notes" style="height: 100px"><?php echo $row['notes']; ?></textarea>
                   

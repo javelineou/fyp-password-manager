@@ -28,14 +28,11 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
-    <!-- Bootstrap Icon Lib-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
-    />
-    <!-- Custom CSS -->
+    
+    <!-- Custom CSS/JS -->
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -97,22 +94,33 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
             <div class="card border-1 rounded-3">
               <div class="card-body">
                 <form id="loginForm" name="loginForm" action="login-action.php" method="POST">
-                  <p class="fw-semibold reg-title">Email Address</p>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    class="form-control my-4 py-2"
-                    required
-                  />
-                  <p class="fw-semibold reg-title">Master Password</p>
-                  <input
-                    type="password"
-                    name="mpassword"
-                    id="mpassword"
-                    class="form-control my-4 py-2"
-                    required
-                  />
+
+                  <label for="email" class="form-label fw-semibold">Email Address</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      class="form-control py-2"
+                    />
+                  </div>
+
+                  <label for="mpassword" class="form-label fw-semibold">Master Password</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                    <input
+                      type="password"
+                      name="mpassword"
+                      id="mpassword"
+                      class="form-control py-2"
+                    />
+                    <span onmouseover="highlight(this)" onmouseout="unhighlight(this)" class="input-group-text" onclick="password_show_hide();">
+                        <i class="bi bi-eye" id="show_eye"></i>
+                        <i class="bi bi-eye-slash d-none" id="hide_eye"></i>
+                    </span>
+                  </div>
+
                   <div class="d-grid gap-2">
                     <div
                       class="g-recaptcha"
@@ -139,5 +147,29 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         <p class="text-center text-muted fs-6">© 2023 VaultMate Inc.</p>
       </div>
     </section>
+    <script>
+      function password_show_hide() {
+        var x = document.getElementById("mpassword");
+        var show_eye = document.getElementById("show_eye");
+        var hide_eye = document.getElementById("hide_eye");
+        hide_eye.classList.remove("d-none");
+        if (x.type === "password") {
+          x.type = "text";
+          show_eye.style.display = "none";
+          hide_eye.style.display = "block";
+        } else {
+          x.type = "password";
+          show_eye.style.display = "block";
+          hide_eye.style.display = "none";
+        }
+      }
+      function unhighlight(x) {
+        x.style.backgroundColor = "transparent";
+      }
+
+      function highlight(x) {
+        x.style.backgroundColor = "#eeeee4";
+      }
+    </script>
   </body>
 </html>

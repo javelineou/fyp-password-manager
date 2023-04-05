@@ -35,7 +35,10 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     />
     <!-- Custom CSS/JS -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="js/password_hide.js"></script>  
+
     
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -108,51 +111,68 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
             <div class="card border-1 rounded-3">
               <div class="card-body">
                 <form id="registerForm" name="registerForm" action="register-action.php" method="POST">
-                  <p class="fw-semibold reg-title">Email Address</p>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    class="form-control my-4 py-2"
-                    placeholder="You'll use your email address to log in."
-                    required
-                  />
-                  <p class="fw-semibold reg-title">Name</p>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    class="form-control my-4 py-2"
-                    placeholder="What should we call you?"
-                    required
-                  />
-                  <p class="fw-semibold reg-title">Master Password</p>
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="form-control my-4 py-2"
-                    required
-                  />
-                  <p class="text-muted fs-14px reg-note">
-                    <b>Important:</b> Master passwords cannot be recovered if
-                    you forget it!
-                  </p>
-                  <p class="fw-semibold reg-title">Re-type Master Password</p>
-                  <input
-                    type="password"
-                    name="repassword"
-                    id="repassword"
-                    class="form-control my-4 py-2"
-                    required
-                  />
+                  <label for="email" class="form-label fw-semibold">Email Address</label>
+                  <div class="input-group mb-3">
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      class="form-control py-2"
+                      placeholder="You'll use your email address to log in."
+                      required
+                    />
+                  </div>
+
+                  <label for="name" class="form-label fw-semibold">Name</label>
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      class="form-control py-2"
+                      placeholder="What should we call you?"
+                      required
+                    />
+                  </div>
+
+                  <label for="password" class="form-label fw-semibold">Master Password</label>
+                  <div class="input-group mb-4">
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      class="form-control py-2"
+                      required
+                    />
+                    <span onmouseover="highlight(this)" onmouseout="unhighlight(this)" class="input-group-text" onclick="password_show_hide_pass();">
+                        <i class="bi bi-eye" id="show_eye"></i>
+                        <i class="bi bi-eye-slash d-none" id="hide_eye"></i>
+                    </span>
+                  </div>
+                  <div class="reg-note">
+                    <p class="text-muted fs-14px"><b>Important:</b> Master passwords cannot be recovered if you forget it!</p>
+                  </div>
+                  
+                  <label for="repassword" class="form-label fw-semibold">Re-type Master Password</label>
+                  <div class="input-group mb-3">
+                    <input
+                      type="password"
+                      name="repassword"
+                      id="repassword"
+                      class="form-control py-2"
+                      required
+                    />
+                    <span onmouseover="highlight(this)" onmouseout="unhighlight(this)" class="input-group-text" onclick="password_show_hide_repass();">
+                        <i class="bi bi-eye" id="show_eye_repass"></i>
+                        <i class="bi bi-eye-slash d-none" id="hide_eye_repass"></i>
+                    </span>
+                  </div>
+
                   <input type="checkbox" id="tnc" name="tnc" value="tnc" />
-                  <label class="fs-14px" for="tnc"
-                    >By checking this box you agree the
-                    <a class="text-decoration-none" href="#"
-                      >Terms of Service & Privacy Policy</a
-                    ></label
-                  >
+                  <label class="fs-14px" for="tnc">
+                    By checking this box you agree the
+                    <a class="text-decoration-none" href="#">Terms of Service & Privacy Policy</a>
+                  </label>
                   <hr />
                   <div class="d-grid gap-2">
                     <input class="btn btn-primary" type="button" onclick="verifyForm()" value="Create account"></input>
@@ -172,5 +192,47 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         <p class="text-center text-muted fs-6">© 2023 VaultMate Inc.</p>
       </div>
     </section>
+    <script>
+      function password_show_hide_pass() {
+        var x = document.getElementById("password");
+        var show_eye = document.getElementById("show_eye");
+        var hide_eye = document.getElementById("hide_eye");
+        hide_eye.classList.remove("d-none");
+        if (x.type === "password") {
+          x.type = "text";
+          show_eye.style.display = "none";
+          hide_eye.style.display = "block";
+        } else {
+          x.type = "password";
+          show_eye.style.display = "block";
+          hide_eye.style.display = "none";
+        }
+      }
+
+      function password_show_hide_repass() {
+        var y = document.getElementById("repassword");
+        var show_eye_repass = document.getElementById("show_eye_repass");
+        var hide_eye_repass = document.getElementById("hide_eye_repass");
+        hide_eye_repass.classList.remove("d-none");
+        if (y.type === "password") {
+          y.type = "text";
+          show_eye_repass.style.display = "none";
+          hide_eye_repass.style.display = "block";
+        } else {
+          y.type = "password";
+          show_eye_repass.style.display = "block";
+          hide_eye_repass.style.display = "none";
+        }
+      }
+
+
+      function unhighlight(x) {
+        x.style.backgroundColor = "transparent";
+      }
+
+      function highlight(x) {
+        x.style.backgroundColor = "#eeeee4";
+      }
+    </script>
   </body>
 </html>

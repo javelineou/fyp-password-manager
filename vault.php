@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vault | VaultMate</title>
+    <title>Vaults | VaultMate</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="img/logo-icon.svg" />
@@ -70,7 +70,7 @@
     <section>
       <div class="container">
         <div class="row mt-3">
-          <div class="col-1">Welcome, <?php echo $_SESSION["name"]; echo "<br>ID:".$_SESSION["user_id"];?> </div>
+          <div class="col-1">Empty space</div>
           <div class="col-3">
             <form action="" method="GET">
             <div class="card">
@@ -152,7 +152,7 @@
               }
             ?>
           </div>
-          <div class="col-3">Empty Space</div>
+          <div class="col-3">Welcome, <?php echo $_SESSION["name"]; echo "<br>ID:".$_SESSION["user_id"];?> </div>
         </div>
       </div>
     </section>
