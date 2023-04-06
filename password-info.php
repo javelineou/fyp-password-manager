@@ -70,7 +70,6 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="js/password_hide.js"></script>
 
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -177,5 +176,29 @@
         <p class="text-center text-muted fs-6">© 2023 VaultMate Inc.</p>
       </div>
     </section>
+    <script>
+      function password_show_hide() {
+        var x = document.getElementById("password");
+        var show_eye = document.getElementById("show_eye");
+        var hide_eye = document.getElementById("hide_eye");
+        hide_eye.classList.remove("d-none");
+        if (x.type === "password") {
+          x.type = "text";
+          show_eye.style.display = "none";
+          hide_eye.style.display = "block";
+        } else {
+          x.type = "password";
+          show_eye.style.display = "block";
+          hide_eye.style.display = "none";
+        }
+      }
+      function unhighlight(x) {
+        x.style.backgroundColor = "transparent";
+      }
+
+      function highlight(x) {
+        x.style.backgroundColor = "#eeeee4";
+      }
+    </script>
     </body>
 </html>
