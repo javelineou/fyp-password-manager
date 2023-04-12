@@ -120,7 +120,43 @@
               <a href="newitem.php" class="btn btn-primary btn-sm float-end">+ New Item</a>
             </p>
                        
-            <?php 
+            <?php
+            if(isset($_GET['categories'])){
+              $category_checked = [];
+              $category_checked = $_GET['categories'];
+              foreach($category_checked as $rowcategory){
+                $item_query = "SELECT * FROM passwords WHERE user_id = " . $_SESSION["user_id"] . " AND category_id IN ($rowcategory)";
+                $item_data = mysqli_query($conn, $item_query);
+
+                if(mysqli_num_rows($item_data) > 0){
+                  foreach($item_data as $item_list) :
+                    ?>
+                      <div class="row">
+                        <div class="col-1">
+                          <?php
+                          $icon_query = "SELECT category_icon FROM category WHERE category_id = " . $item_list['category_id'];
+                          $icon_data = mysqli_query($conn, $icon_query);
+                          $row = mysqli_fetch_assoc($icon_data);
+                          echo $row['category_icon'];
+                          ?>
+                                            
+                        </div>
+                        <div class="col-11">
+                        <a href="password-info.php?password_id=<?php echo $item_list['password_id']; ?>" class="item-link text-decoration-none fw-semibold"><?php echo $item_list['title']; ?></a>
+                        <p class="text-muted fs-14px"><?= $item_list['username']; ?></p>
+                        </div>
+                        <hr>
+                      </div>
+                    <?php
+                  endforeach;
+                }
+                
+                else{
+                  echo "No item found";
+                }
+              }
+            }
+            else{
               $item_query = "SELECT * FROM passwords WHERE user_id = " . $_SESSION["user_id"];
               $item_data = mysqli_query($conn, $item_query);
 
@@ -150,11 +186,15 @@
               else{
                 echo "No item found";
               }
+            }
             ?>
           </div>
           <div class="col-3">Welcome, <?php echo $_SESSION["name"]; echo "<br>ID:".$_SESSION["user_id"];?> </div>
         </div>
       </div>
     </section>
+    <script>
+      
+    </script>
   </body>
 </html>

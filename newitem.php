@@ -140,7 +140,7 @@
                     required
                   />
                   <label for="notes" class="fw-semibold reg-title"> Notes</label>
-                  <textarea class="form-control" placeholder="Leave a comment here" name="notes" id="notes" style="height: 100px"></textarea>
+                  <textarea class="form-control" placeholder="Leave an additional notes here" name="notes" id="notes" style="height: 100px"></textarea>
                   
                   <hr />
                   <div class="d-grid gap-2">
