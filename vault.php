@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -71,6 +72,7 @@
       <div class="container">
         <div class="row mt-3">
           <div class="col-1">Empty space</div>
+          <!-- Category List -->
           <div class="col-3">
             <form action="" method="GET">
             <div class="card">
@@ -115,11 +117,12 @@
             </div>
             </form>
           </div>
+          <!-- Item List -->
           <div class="col-5">
             <p class="fs-3 fw-normal">All Vaults  
               <a href="newitem.php" class="btn btn-primary btn-sm float-end">+ New Item</a>
             </p>
-                       
+                      
             <?php
             if(isset($_GET['categories'])){
               $category_checked = [];
@@ -141,10 +144,15 @@
                           ?>
                                             
                         </div>
-                        <div class="col-11">
+                        <div class="col-10">
                         <a href="password-info.php?password_id=<?php echo $item_list['password_id']; ?>" class="item-link text-decoration-none fw-semibold"><?php echo $item_list['title']; ?></a>
                         <p class="text-muted fs-14px"><?= $item_list['username']; ?></p>
                         </div>
+                        <div class="col-1">
+                        <button type="button" class="btn btn-outline-danger btn-sm opacity-75">
+                          <i class="bi bi-trash3"></i>
+                        </button>
+                      </div>
                         <hr>
                       </div>
                     <?php
@@ -173,9 +181,43 @@
                         ?>
                                           
                       </div>
-                      <div class="col-11">
-                       <a href="password-info.php?password_id=<?php echo $item_list['password_id']; ?>" class="item-link text-decoration-none fw-semibold"><?php echo $item_list['title']; ?></a>
-                       <p class="text-muted fs-14px"><?= $item_list['username']; ?></p>
+                      <div class="col-10">
+                        <a href="password-info.php?password_id=<?php echo $item_list['password_id']; ?>" class="item-link text-decoration-none fw-semibold"><?php echo $item_list['title']; ?></a>
+                        <p class="text-muted fs-14px"><?= $item_list['username']; ?></p>
+                      </div>
+                      <div class="col-1">
+                        <?php
+                          if (isset($_POST['delete_btn'])) {
+                            $password_id = $_POST['password_id'];
+                            $delete_query = "DELETE FROM passwords WHERE password_id = $password_id";
+
+                            if (mysqli_query($conn, $delete_query)) {
+                              ?>
+                              <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Item Deleted',
+                                    text: 'Your item has been deleted',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                  }).then((result) => {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
+                                        window.location.href = "vault.php";                            
+                                        }
+                                    });
+                              </script>
+                              <?php
+                            } else {
+                              echo "Error deleting item: " . mysqli_error($conn);
+                            }
+                          }
+                        ?>
+                        <form action="" method="POST">
+                          <input type="hidden" name="password_id" value="<?php echo $item_list['password_id']; ?>">
+                          <button type="submit" name="delete_btn" class="btn btn-outline-danger btn-sm opacity-75">
+                            <i class="bi bi-trash3"></i>
+                          </button>
+                        </form>
                       </div>
                       <hr>
                     </div>
