@@ -70,12 +70,38 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
 
     <body>
+    <script>
+      function verifyForm() {
+        //Validating form requirements
+        var title = document.forms["edititemForm"]["title"].value;
+        var username = document.forms["edititemForm"]["username"].value;
+        var password = document.forms["edititemForm"]["password"].value;
+        var notes = document.forms["edititemForm"]["notes"].value;
+        
+        if (title == "" || username == "" || password == ""){
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid',
+            text: 'Please input your data completely',
+            confirmButtonText: 'Ok',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              location.reload();
+            }
+          })
+        }
+        else{
+          document.getElementById("edititemForm").submit();
+        }
+      }
+    </script>
         <section>
         <nav class="navbar navbar-light bg-bitwarden">
             <div class="container-fluid ms-navbar-left">
@@ -113,13 +139,16 @@
           <div class="col-12 col-sm-6 col-md-6 m-auto">
             <div class="card border-1 rounded-3">
               <div class="card-body">
-                <form id="newitemForm" name="newitemForm" action="newitem-action.php" method="POST">
+                <form id="edititemForm" name="edititemForm" action="edititem-action.php" method="POST">
+
+                  <input type="hidden" name="password_id" value="<?php echo $password_id; ?>">
+
                   <label for="categories" class="fw-semibold reg-title">What type of item is this?</label>
                   <select class="form-select mb-4 mt-2" aria-label="Default select example" name="categories" id="categories">
-                    <option value="1" selected>Email</option>
-                    <option value="2">Social Media</option>
-                    <option value="3">Game & Entertainment</option>
-                    <option value="4">Finance</option>
+                    <option value="1" <?php if($row['category_id'] == 1) echo "selected"; ?>>Email</option>
+                    <option value="2" <?php if($row['category_id'] == 2) echo "selected"; ?>>Social Media</option>
+                    <option value="3" <?php if($row['category_id'] == 3) echo "selected"; ?>>Game & Entertainment</option>
+                    <option value="4" <?php if($row['category_id'] == 4) echo "selected"; ?>>Finance</option>
                   </select>
 
                   <label for="title" class="form-label fw-semibold">Title</label>
@@ -162,7 +191,8 @@
                   
                   <hr />
                   <div class="d-grid gap-2">
-                    <input class="btn btn-primary" type="button" onclick="" value="Save"></input>
+                    <input class="btn btn-primary" type="button" onclick="verifyForm()" value="Save"></input>
+                    <input class="btn btn-outline-secondary" type="button" onclick="location.href='vault.php';" value="Cancel"></input>
                   </div>
                 </form>
               </div>

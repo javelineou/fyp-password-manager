@@ -35,8 +35,8 @@ function toBin($str){
     $ciphertext1 = substr($ciphertext, 0, $middle);
     $ciphertext2 = substr($ciphertext, $middle);
 
-    file_put_contents("houseori1.jpg", fopen("https://random.imagecdn.app/150/150", 'r'));
-    file_put_contents("houseori2.jpg", fopen("https://random.imagecdn.app/150/150", 'r'));
+    file_put_contents("houseori1.jpg", fopen("https://loremflickr.com/150/150", 'r'));
+    file_put_contents("houseori2.jpg", fopen("https://loremflickr.com/150/150", 'r'));
     $src1 = 'C:/xampp/htdocs/fyp-password-manager/houseori1.jpg';
     $src2 = 'C:/xampp/htdocs/fyp-password-manager/houseori2.jpg';
     steganize($src1, $ciphertext1, $conn);

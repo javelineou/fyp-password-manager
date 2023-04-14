@@ -56,7 +56,7 @@
 
           <ul class="nav me-auto">
             <li class="nav-item">
-              <a class="nav-link link-light fw-bold" href="vault.php#">My Vault</a>
+              <a class="nav-link link-light fw-bold" href="vault.php">My Vault</a>
             </li>
             <li class="nav-item">
               <a class="nav-link link-light fw-bold text-white-50" href="tools.php">Tools</a>
@@ -74,19 +74,16 @@
           <div class="col-1">Empty space</div>
           <!-- Category List -->
           <div class="col-3">
-            <form action="" method="GET">
+            <form action="" method="GET" id="filter-form">
             <div class="card">
               <div class="card-header">
                 <p class="fs-6 fw-bold">
                   FILTERS
-                  <button type="submit" class="btn btn-primary btn-sm float-end">
-                    Search
-                  </button>
+                  <input type="button" href="vault.php" class="btn btn-primary btn-sm float-end" value="Clear" onclick="location.href='vault.php';"></input>
                 </p>
               </div>
               <div class="card-body">
                 <p class="fs-6 fw-semibold">Items Category</p>
-                <hr />
                 <?php
                   $category_query = "SELECT * FROM category";
                   $category_data = mysqli_query($conn, $category_query);
@@ -103,6 +100,7 @@
                         <div>
                           <input type="radio" name="categories[]" value="<?= $category_list['category_id']; ?>"
                             <?php if(in_array($category_list['category_id'], $checked)){echo "checked";} ?>
+                            class="filter-radio"
                           />
                           <?= $category_list['category_name']; ?>
                         </div>
@@ -236,7 +234,11 @@
       </div>
     </section>
     <script>
-      
+      $(document).ready(function() {
+        $('.filter-radio').change(function() {
+          $('#filter-form').submit();
+        });
+      });
     </script>
   </body>
 </html>
