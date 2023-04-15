@@ -31,18 +31,47 @@
       crossorigin="anonymous"
     ></script>
     <!-- Bootstrap Icon Lib-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <!-- Custom CSS/JS -->
     <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="
+      https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js
+      "></script>
+      <link href="
+      https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
+      " rel="stylesheet">
+
 
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
 
   <body>
+    <script>
+      function copied() {
+        toastr.options = {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": true,
+          "positionClass": "toast-bottom-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "200",
+          "hideDuration": "500",
+          "timeOut": "1500",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "swing",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+
+        toastr.success("", "Copied");
+      }
+    </script>
+
     <section>
       <nav class="navbar navbar-light bg-bitwarden">
         <div class="container-fluid ms-navbar-left">
@@ -85,8 +114,8 @@
                 </div>
               </div>
             </div>
-            <div class="settings">
-              <p class="fw-semibold">Length</p>
+            <div class="settings mt-3">
+              <label class="fw-semibold">Length:</label>
               <input
                 class="mb-3"
                 type="number"
@@ -110,10 +139,8 @@
             <button class="btn btn-primary fw-semibold" id="generate">
               Generate
             </button>
-            <button class="btn btn-outline-secondary fw-semibold" id="copy">
-              Copy password
-            </button>
-            <script src="js/passgen.js"></script>
+            <input type="button" class="btn btn-outline-secondary fw-semibold" id="copy" value="Copy password" onclick="copied()">           
+            </input>
           </div>
         </div>
       </div>
@@ -125,9 +152,36 @@
           <div class="col-7">
             <p class="fs-4">Passphrase Generator</p>
             <hr />
+            <div class="card">
+              <div class="card-body text-center">
+                <div>
+                <div id="passphrase">
+                    Loading..
+                  </div>
+                  <p class="crack-time-label">Approximate Crack Time: <span class="crack-time">0 seconds</span></p>
+                  </div>
+                </div>
+            </div>
+            <div class="passphrase-options text-center">
+              <select id="passphrase_select">
+                <option value="4" selected>Four-word passphrase, with spaces</option>
+                <option value="5">Five-word passphrase, with spaces</option>
+                <option value="12">Twelve-word passphrase, with spaces</option>
+              </select>
+              <button class="btn-generate">Generate New Passphrase</button>
+            </div>
           </div>
         </div>
       </div>
     </section>
+    <section>
+      <div class="pt-3 mt-5">
+        <p class="text-center text-muted fs-6">© 2023 VaultMate Inc.</p>
+      </div>
+    </section>
+    <script src="js/passgen.js"></script>
+    <script src="js/zxcvbn.js"></script>
+    <script src="js/wordlist.js"></script>
+    <script src="js/passphrase.js"></script>
   </body>
 </html>
