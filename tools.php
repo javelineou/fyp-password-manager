@@ -108,7 +108,7 @@
             <div class="card">
               <div class="card-body text-center">
                 <div class="result">
-                  <div class="result__viewbox" id="result">
+                  <div id="result">
                     oI9nU1gA2hR2oU7y
                   </div>
                 </div>
@@ -136,9 +136,7 @@
               <label for="symbol">Include Symbols</label><br /><br />
             </div>
 
-            <button class="btn btn-primary fw-semibold" id="generate">
-              Generate
-            </button>
+            <button class="btn btn-primary fw-semibold" id="btn-generatePw" onclick="passGen()">Generate New Password</button>
             <input type="button" class="btn btn-outline-secondary fw-semibold" id="copy" value="Copy password" onclick="copied()">           
             </input>
           </div>
@@ -155,20 +153,21 @@
             <div class="card">
               <div class="card-body text-center">
                 <div>
-                <div id="passphrase">
+                  <div id="passphrase">
                     Loading..
                   </div>
-                  <p class="crack-time-label">Approximate Crack Time: <span class="crack-time">0 seconds</span></p>
+                  <p class="crack-time-label fs-13px mt-3"><b>Approximate Crack Time:</b> <span class="crack-time">0 seconds</span></p>
                   </div>
                 </div>
             </div>
             <div class="passphrase-options text-center">
-              <select id="passphrase_select">
+              <select class="form-select mt-3" id="passphrase_select">
                 <option value="4" selected>Four-word passphrase, with spaces</option>
                 <option value="5">Five-word passphrase, with spaces</option>
                 <option value="12">Twelve-word passphrase, with spaces</option>
               </select>
-              <button class="btn-generate">Generate New Passphrase</button>
+              <button class="btn btn-primary mt-3 fw-semibold" id="btn-generatePp" onclick="passphraseGen()">Generate New Passphrase</button>
+              <input type="button" class="btn btn-outline-secondary fw-semibold mt-3" id="copy2" value="Copy passphrase">
             </div>
           </div>
         </div>
@@ -179,9 +178,9 @@
         <p class="text-center text-muted fs-6">© 2023 VaultMate Inc.</p>
       </div>
     </section>
-    <script src="js/passgen.js"></script>
     <script src="js/zxcvbn.js"></script>
     <script src="js/wordlist.js"></script>
     <script src="js/passphrase.js"></script>
+    <script src="js/passgen.js"></script>
   </body>
 </html>
