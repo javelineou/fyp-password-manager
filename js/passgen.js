@@ -33,7 +33,44 @@ function passGen() {
     return symbols[Math.floor(Math.random() * symbols.length)];
   }
 
-  // Selecting all the DOM Elements that are necessary -->
+  function convertSecondsToReadable(seconds) {
+    var timeString = "";
+    var crackabilityColor = "green";
+
+    // Enumerate all the numbers
+    var numMilliseconds = seconds * 1000;
+    var numSeconds = Math.floor(seconds);
+    var numMinutes = Math.floor(numSeconds / 60);
+    var numHours = Math.floor(numSeconds / (60 * 60));
+    var numDays = Math.floor(numSeconds / (60 * 60 * 24));
+    var numYears = Math.floor(numSeconds / (60 * 60 * 24 * 365));
+    var numCenturies = Math.floor(numSeconds / (60 * 60 * 24 * 365 * 100));
+
+    if (numMilliseconds < 1000) {
+      timeString = numMilliseconds + " milliseconds";
+    } else if (numSeconds < 60) {
+      timeString = numSeconds + " seconds";
+    } else if (numMinutes < 60) {
+      timeString = numMinutes + " minutes";
+    } else if (numHours < 24) {
+      timeString = numHours + " hours";
+    } else if (numDays < 365) {
+      timeString = numDays + " days";
+    } else if (numYears < 100) {
+      timeString = numYears + " years";
+    } else {
+      timeString = numCenturies + " centuries";
+    }
+
+    return timeString.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  //Calculate crack time
+  function calculateAndSetCrackTime2() {
+    var timeToCrack = zxcvbn(resultEl.innerText);
+    var readableCrackTime = convertSecondsToReadable(timeToCrack.crack_time);
+    document.querySelector(".crack-time-2").innerHTML = readableCrackTime;
+  }
 
   // The Viewbox where the result will be shown
   const resultEl = document.getElementById("result");
@@ -57,6 +94,10 @@ function passGen() {
   const copyBtn = document.getElementById("copy");
   // Result viewbox container
   const resultContainer = document.querySelector(".result");
+
+  // Initially run it upon load
+  resultEl.innerText = generatePassword(16, true, true, true, false);
+  calculateAndSetCrackTime2();
 
   //Copy password to clipboard when copy button clicked
   copyBtn.addEventListener("click", () => {
@@ -87,6 +128,7 @@ function passGen() {
       hasNumber,
       hasSymbol
     );
+    calculateAndSetCrackTime2();
   });
 
   // Function responsible to generate password and then returning it.
@@ -128,3 +170,5 @@ function passGen() {
     });
   });
 }
+
+passGen();

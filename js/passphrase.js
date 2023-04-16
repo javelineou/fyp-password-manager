@@ -72,6 +72,7 @@ function passphraseGen() {
   var selectField = document.getElementById("passphrase_select");
   var passwordField = document.getElementById("passphrase");
   var phraseButton = document.getElementById("btn-generatePp");
+  var copyBtn2 = document.getElementById("copy2");
 
   // Initially run it upon load
   passwordField.textContent = generatePassword(4);
@@ -86,9 +87,18 @@ function passphraseGen() {
     calculateAndSetCrackTime();
   });
 
-  // Listen for password value change
-  passwordField.addEventListener("input", function (evt) {
-    calculateAndSetCrackTime();
+  //Copy password to clipboard when copy button clicked
+  copyBtn2.addEventListener("click", () => {
+    const textarea = document.createElement("textarea");
+    const password = passwordField.textContent;
+    if (!password) {
+      return;
+    }
+    textarea.value = password;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    textarea.remove();
   });
 }
 

@@ -108,9 +108,10 @@
             <div class="card">
               <div class="card-body text-center">
                 <div class="result">
-                  <div id="result">
+                  <div class="fs-3" id="result">
                     oI9nU1gA2hR2oU7y
                   </div>
+                  <p class="crack-time-label fs-13px mt-3"><b>Approximate Crack Time:</b> <span class="crack-time-2">0 seconds</span></p>
                 </div>
               </div>
             </div>
@@ -167,7 +168,7 @@
                 <option value="12">Twelve-word passphrase, with spaces</option>
               </select>
               <button class="btn btn-primary mt-3 fw-semibold" id="btn-generatePp" onclick="passphraseGen()">Generate New Passphrase</button>
-              <input type="button" class="btn btn-outline-secondary fw-semibold mt-3" id="copy2" value="Copy passphrase">
+              <input type="button" class="btn btn-outline-secondary fw-semibold mt-3" id="copy2" value="Copy passphrase" onclick="copied()">
             </div>
           </div>
         </div>
