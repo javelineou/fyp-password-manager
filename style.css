@@ -25,3 +25,39 @@ body {
 .ms-navbar-left {
   margin-left: 210px;
 }
+
+/* Password Strength Bar */
+.password-meter-wrap {
+  margin-top: 5px;
+  height: 16px;
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+.password-meter-bar {
+  width: 0;
+  height: 100%;
+  transition: width 400ms ease-in;
+  border-radius: 5px;
+}
+
+.password-meter-bar.level0 {
+  width: 20%;
+  background-color: #d00;
+}
+.password-meter-bar.level1 {
+  width: 40%;
+  background-color: #f50;
+}
+.password-meter-bar.level2 {
+  width: 60%;
+  background-color: #ff0;
+}
+.password-meter-bar.level3 {
+  width: 80%;
+  background-color: rgb(121, 206, 43);
+}
+.password-meter-bar.level4 {
+  width: 100%;
+  background-color: #393;
+}

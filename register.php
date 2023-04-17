@@ -152,6 +152,9 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                   <div class="reg-note">
                     <p class="text-muted fs-14px"><b>Important:</b> Master passwords cannot be recovered if you forget it!</p>
                   </div>
+                  <div class="password-meter-wrap mb-2">
+                    <div class="password-meter-bar"></div>
+                  </div>
                   
                   <label for="repassword" class="form-label fw-semibold">Re-type Master Password</label>
                   <div class="input-group mb-3">
@@ -234,5 +237,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         x.style.backgroundColor = "#eeeee4";
       }
     </script>
+    <script src="js/zxcvbn.js"></script>
+    <script src="js/passBar.js"></script>
   </body>
 </html>

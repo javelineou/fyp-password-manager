@@ -71,7 +71,7 @@
     <section>
       <div class="container">
         <div class="row mt-3">
-          <div class="col-1">Empty space</div>
+          <div class="col-1"></div>
           <!-- Category List -->
           <div class="col-3">
             <form action="" method="GET" id="filter-form">
