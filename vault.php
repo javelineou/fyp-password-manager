@@ -147,9 +147,65 @@
                         <p class="text-muted fs-14px"><?= $item_list['username']; ?></p>
                         </div>
                         <div class="col-1">
-                        <button type="button" class="btn btn-outline-danger btn-sm opacity-75">
-                          <i class="bi bi-trash3"></i>
-                        </button>
+                        <?php
+                          if (isset($_POST['delete_btn_filter'])) {
+                            $password_id = $_POST['password_id'];
+                            $delete_query = "DELETE FROM passwords WHERE password_id = $password_id";
+                            
+                            if (true) {
+                              ?>
+                                <script>
+                                    Swal.fire({
+                                        title: 'Are you sure?',
+                                        text: "You won't be able to revert this!",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#d33',
+                                        cancelButtonColor: '#3085d6',
+                                        confirmButtonText: 'Yes, delete it!'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $.ajax({
+                                                url: 'delete-password.php',
+                                                type: 'POST',
+                                                data: {password_id: <?php echo $password_id ?>},
+                                                success: function() {
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: 'Item Deleted',
+                                                        text: 'Your item has been deleted',
+                                                        showConfirmButton: false,
+                                                        timer: 2000
+                                                    }).then((timer) => {
+                                                        if (timer.dismiss === Swal.DismissReason.timer) {
+                                                            window.location.href = "vault.php";
+                                                        }
+                                                    });
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    console.error(xhr.responseText);
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: 'Error deleting item',
+                                                        text: xhr.responseText,
+                                                        showConfirmButton: false,
+                                                        timer: 3000
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                </script>
+                                <?php
+                            }
+                          }
+                        ?>
+                        <form action="" method="POST">
+                          <input type="hidden" name="password_id" value="<?php echo $item_list['password_id']; ?>">
+                          <button type="submit" name="delete_btn_filter" class="btn btn-outline-danger btn-sm opacity-75">
+                            <i class="bi bi-trash3"></i>
+                          </button>
+                        </form>
                       </div>
                         <hr>
                       </div>
@@ -188,25 +244,52 @@
                           if (isset($_POST['delete_btn'])) {
                             $password_id = $_POST['password_id'];
                             $delete_query = "DELETE FROM passwords WHERE password_id = $password_id";
-
-                            if (mysqli_query($conn, $delete_query)) {
+                            
+                            if (true) {
                               ?>
-                              <script>
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Item Deleted',
-                                    text: 'Your item has been deleted',
-                                    showConfirmButton: false,
-                                    timer: 3000
-                                  }).then((result) => {
-                                        if (result.dismiss === Swal.DismissReason.timer) {
-                                        window.location.href = "vault.php";                            
+                                <script>
+                                    Swal.fire({
+                                        title: 'Are you sure?',
+                                        text: "You won't be able to revert this!",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#d33',
+                                        cancelButtonColor: '#3085d6',
+                                        confirmButtonText: 'Yes, delete it!'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $.ajax({
+                                                url: 'delete-password.php',
+                                                type: 'POST',
+                                                data: {password_id: <?php echo $password_id ?>},
+                                                success: function() {
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: 'Item Deleted',
+                                                        text: 'Your item has been deleted',
+                                                        showConfirmButton: false,
+                                                        timer: 2000
+                                                    }).then((timer) => {
+                                                        if (timer.dismiss === Swal.DismissReason.timer) {
+                                                            window.location.href = "vault.php";
+                                                        }
+                                                    });
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    console.error(xhr.responseText);
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: 'Error deleting item',
+                                                        text: xhr.responseText,
+                                                        showConfirmButton: false,
+                                                        timer: 3000
+                                                    });
+                                                }
+                                            });
                                         }
                                     });
-                              </script>
-                              <?php
-                            } else {
-                              echo "Error deleting item: " . mysqli_error($conn);
+                                </script>
+                                <?php
                             }
                           }
                         ?>

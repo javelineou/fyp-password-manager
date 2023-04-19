@@ -52,7 +52,7 @@
               title: 'Item Saved',
               text: 'You will be redirected to your vault',
               showConfirmButton: false,
-              timer: 3000
+              timer: 2000
           }).then((result) => {
                 if (result.dismiss === Swal.DismissReason.timer) {
                 window.location.href = "vault.php";                            

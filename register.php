@@ -28,17 +28,11 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
-    <!-- Bootstrap Icon Lib-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
-    />
+
     <!-- Custom CSS/JS -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript" src="js/password_hide.js"></script>  
-
     
     <!-- reCaptcha script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -52,13 +46,13 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         var pw2 = document.forms["registerForm"]["repassword"].value;
         var email = document.forms["registerForm"]["email"].value;
         var name = document.forms["registerForm"]["name"].value;
-        var length = pw1.length;
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{15,}$/;
                 
-        if (length < 12){
+        if (pw1.length <= 15 || !regex.test(pw1)){
           Swal.fire({
             icon: 'error',
             title: 'Invalid',
-            text: 'Password must be at least 12 characters',
+            text: 'Password is too weak! Password must be at least 15 characters and include uppercase, lowercase, numeric, special characters.',
             confirmButtonText: 'Ok',
           }).then((result) => {
             if (result.isConfirmed) {
@@ -93,8 +87,9 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
           })
         }
 
-        if (pw1 == pw2 && length >= 12 && email != "" && name != ""){
-          document.getElementById("registerForm").submit();
+        if (pw1 == pw2 && pw1.length > 15 && email != "" && name != "" && regex.test(pw1)){
+          //document.getElementById("registerForm").submit();
+          console.log("Submitted");
         }
         
       }
@@ -227,7 +222,6 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
           hide_eye_repass.style.display = "none";
         }
       }
-
 
       function unhighlight(x) {
         x.style.backgroundColor = "transparent";
