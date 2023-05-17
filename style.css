@@ -26,6 +26,11 @@ body {
   margin-left: 210px;
 }
 
+.filter-label:hover {
+  color: #3232ff;
+  cursor: pointer;
+}
+
 /* Password Strength Bar */
 .password-meter-wrap {
   margin-top: 5px;

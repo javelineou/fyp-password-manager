@@ -90,7 +90,10 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     <section>
       <div class="container mt-2 pt-5">
         <div class="row">
-          <div class="col-12 col-sm-8 col-md-4 m-auto">
+          <div class="col-6 col-sm-8 col-md-4 m-auto">
+          <img src="img/login_img.webp" class="img-fluid" alt="Login image">
+          </div>
+          <div class="col-6 col-sm-8 col-md-4 m-auto">
             <div class="card border-1 rounded-3">
               <div class="card-body">
                 <form id="loginForm" name="loginForm" action="login-action.php" method="POST">
@@ -127,7 +130,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
                       data-sitekey="6LfuT50fAAAAAPkUxAYUgDIV_SXZo5AQEmNkPwDL"
                     ></div>
                     <hr />
-                    <input class="btn btn-primary" type="button" onclick="verifyForm()" value="Login"></input>
+                    <input class="btn btn-primary shadow-sm" type="button" onclick="verifyForm()" value="Login"></input>
                     <p class="fs-14px">
                       New around here?
                       <a href="register.php" class="text-decoration-none"

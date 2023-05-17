@@ -88,21 +88,27 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         }
 
         if (pw1 == pw2 && pw1.length > 15 && email != "" && name != "" && regex.test(pw1)){
-          //document.getElementById("registerForm").submit();
-          console.log("Submitted");
+          document.getElementById("registerForm").submit();
         }
-        
       }
     </script>
     <section>
-      <div class="container mt-2 pt-3 text-center">
-        <p class="fs-4 fw-light">Create Account</p>
+      <div class="container mt-1 pt-5 text-center">
       </div>
     </section>
     <section>
       <div class="container mt-2 pt-3">
         <div class="row">
-          <div class="col-12 col-sm-7 col-md-5 m-auto">
+          <div class="col-6 col-sm-7 col-md-5 m-auto">
+            <img src="img/vault_icon.png" class="img-fluid" alt="Register image">
+            <div class="ps-5">
+              <p class="fs-2 fw-semibold">Join Us</p>
+              <p class="fs-5">Password Manager Application with Multi-layer Security</p>
+              <p class="fs-6">Developed by Adrianus Tristan</p>
+              <button type="button" class="btn btn-outline-dark rounded-3">About us</button>
+            </div>
+          </div>
+          <div class="col-6 col-sm-7 col-md-5 m-auto">
             <div class="card border-1 rounded-3">
               <div class="card-body">
                 <form id="registerForm" name="registerForm" action="register-action.php" method="POST">
